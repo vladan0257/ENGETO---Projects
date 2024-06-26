@@ -7,7 +7,7 @@ discord username: vladan0257
 
 import random
 
-def generateNo(digitsLength):
+def generateNo(digitsLength=4):
     '''
     Generate secret random number with non-repeating digits, which is to be checked against user typed-in number.
     Default length is 4 digits. Zero at first position is prohibited.
@@ -80,9 +80,8 @@ def guessNo(secretNo):
                     break
 
 def main():
-    noLength = 4
-    secretNo = generateNo(noLength)
-    # print(secretNo)
+    secretNo = generateNo()
+    print(secretNo)
     guessNo(secretNo)
 
 if __name__ == '__main__':
