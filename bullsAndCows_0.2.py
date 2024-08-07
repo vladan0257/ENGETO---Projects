@@ -22,11 +22,12 @@ def generateNo(digitsLength=4):
 
 def isValidNo(userNo, secretNo):
     '''
-    Check players'input and eventally call for new attempt, when it is not all numeric, contains duplicates or begins with 0.
+    Check players'input and eventually call for new attempt, when it is not all numeric, contains duplicates either numberic or
+    alphabetic or both, or begins with 0.
 
     Args:
         userNo (str): User input.
-        secretNo (str): 
+        secretNo (str): A random number with predefined attributes, which is to be checked against the user input.
     '''
     correctLength = isUnique = firstNotZero = allNum = True
 
@@ -35,7 +36,7 @@ def isValidNo(userNo, secretNo):
         correctLength = False
 
     if len(set(userNo)) != len(userNo):
-        print('Your number contains some duplicates.')
+        print('Your input contains some duplicates.')
         isUnique = False
 
     if userNo[0] == '0':
@@ -54,13 +55,13 @@ def isValidNo(userNo, secretNo):
 
 def separator(stringsList):
     '''
-    Return array of asterisks for better oreintation and readability.  
+    Return array of asterisks for better orientation and readability.  
 
     Args:
-        stringsList (list): Introductory text (variable introTxt) is divided into several sections. The function takes into 
-        consideration length of each individual section and returns a string of asterisks of length of the longest one 
-        contained in the list, so the text and everything that follows is visually coherent and causes no distraction to the 
-        reader. 
+        stringsList (list): Introductory text (referenced to via variable introTxt) is divided into several sections. 
+        The function takes into consideration length of each individual section and returns a string of asterisks of 
+        length of the longest section, so the text and everything that follows is visually coherent and causes no 
+        distraction to the reader. 
     '''
     return '-' * len(max(stringsList, key=len))
 
@@ -69,10 +70,10 @@ def printIntro(stringsList, separator):
     Show introductory text.
 
     Args:
-        stringsList (list): Introductory text (variable introTxt) is divided into several sections. The function takes into 
-        consideration length of each individual section and returns a string of asterisks of length of the longest one 
-        contained in the list, so the text and everything that follows is visually coherent and causes no distraction to the 
-        reader.  
+        stringsList (list): Introductory text (referenced to via variable introTxt) is divided into several sections. 
+        The function takes into consideration length of each individual section and returns a string of asterisks of 
+        length of the longest section, so the text and everything that follows is visually coherent and causes no 
+        distraction to the reader.
         separator (str): Separates the text for better oreintation and readability using an array of asterisks.
  
     '''
@@ -82,15 +83,15 @@ def processStats(userNo, secretNo):
     '''
     Compare a user number with randomly generated number, which is to be revealed. For each number match a player gets 
     1 point for 'cows'. When the player hits correct number and at the same time its position, 1 point goes for 'bulls'. 
-    The game ends, when player collects 4 points for 'bulls'.
+    The game ends, when player collects 4 points for 'bulls', i.e. bulls: 4, cows: 0.
 
     Example: secret no is 5793, players' input is 1398: The player gets 1 point for cows, because both numbers contain no 3
-    and 1 point for bulls, because number 9 in players' input is also present within the secret number and moreover it is on 
+    and 1 point for bulls, because number 9 in players' input is also present within the secret number and it 'sits' on 
     the same position.
 
     Args:
-        userNo (str): User typed number.
-        secretNo (str): The number, which is to be revealed.
+        userNo (str): User input.
+        secretNo (str): A random number with predefined attributes, which is to be checked against the user input.
     '''
     results = {'bulls': sum(userNo[i] == secretNo[i] for i in range(len(userNo))), 'cows': sum(ch in secretNo for ch in userNo)}
     results['cows'] = results['cows'] - results['bulls']
@@ -109,7 +110,7 @@ def showStats(statsDict):
 
 def showEvaluation(round, separator):
     '''
-    Show how many rounds a player needed in order to get the right number and follow it with a verbal interpretation of the actual result.
+    Show how many rounds a player needed in order to get the right number and follow it with a verbal summation of the actual result.
 
     Args:
         round (int): A rounds'counter. Initiate with 0 and add 1 each time the player is urged to put his number, which means that even
@@ -125,7 +126,7 @@ def showEvaluation(round, separator):
 def main():
 
     secretNo = generateNo()
-    # print(secretNo)
+    print(secretNo)
     introTxt = ['', 'Hi there!', f'I\'ve generated a random {len(secretNo)} digit number for you.', 
     'Let\'s play a bulls and cows game.', 'Enter a number:']
     sep = separator(introTxt)
